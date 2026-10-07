@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header>
+        <h1>Coffee Shop</h1>
+        <a id="home-button" href="/">
+            <button class="button">
+                <img id="home-button-image" src="/home-icon.png" width="100" alt="Home icon">
+            </button>
+        </a>
+
+        <form id="logout-form" action="/logout" method="post">
+            <button class="button">Logout</button>
+        </form>
+
+        <a id="shopping-basket-button"
+           th:href="${session.user != null && session.user.admin} ? '/admin-order-history' : '/shopping-basket'">
+            <button class="button"
+                    th:text="${session.user != null && session.user.admin} ? 'View Orders' : 'Basket'"></button>
+        </a>
+
+        <a th:if="${session.user != null && session.user.admin}" id="add-product-button" href="/admin-add-product">
+            <button class="button">Add Product</button>
+        </a>
+    </header>
+
+    <br><br>
+
+    <main class="product-grid">
+        <a th:each="product: ${products}" class="product-card"
+           th:classappend="${product.hidden} ? 'product-hidden'"
+           th:href="${session.user != null && session.user.admin} ? @{/admin-product-details(id=${product.id})} : @{/product-details(id=${product.id})}">
+            <img th:src="|/${product.imageUrl}|" th:alt="${product.name}">
+            <p th:text="${product.name}"></p>
+        </a>
+    </main>
+</body>
+</html>

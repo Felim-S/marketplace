@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Product Details</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header>
+        <h1>Admin Product Details</h1>
+        <a id="home-button" href="/">
+            <button class="button">
+                <img id="home-button-image" src="/home-icon.png" width="100" alt="Home icon">
+            </button>
+        </a>
+
+        <form id="logout-form" action="/logout" method="post">
+            <button class="button">Logout</button>
+        </form>
+
+        <a id="shopping-basket-button" href="/admin-add-product">
+            <button class="button">Add New Product</button>
+        </a>
+    </header>
+
+    <div class="product-details">
+        <img th:src="|/${product.imageUrl}|" th:alt="${product.name}">
+        <div class="product-info">
+            <form th:action="@{/admin-product-details/update}" method="post">
+                <input type="hidden" name="id" th:value="${product.id}">
+
+                <label for="product-name">Name:</label>
+                <input type="text" id="product-name" name="name" th:value="${product.name}" required>
+
+                <br>
+                <br>
+
+                <label for="product-price">Price:</label>
+                <div id="price-input">
+                    <span>$</span>
+                    <input type="number" id="product-price" name="price" min="0" step="0.01" th:value="${product.price}" required>
+                </div>
+
+                <br>
+
+                <label for="product-description">Description:</label>
+                <textarea id="product-description" name="description" required th:text="${product.description}"></textarea>
+
+                <br>
+
+                <label for="product-image">Image filename:</label>
+                <input type="text" id="product-image" name="imageUrl" th:value="${product.imageUrl}" required>
+
+                <br>
+                <br>
+
+                <div class="admin-actions">
+                    <button type="submit">Update</button>
+
+                    <button type="button" onclick="document.getElementById('hide-form').submit();"
+                            th:text="${product.hidden} ? 'Unhide' : 'Hide'"></button>
+
+                    <button type="button" class="btn-danger" onclick="document.getElementById('delete-form').submit();">Delete</button>
+                </div>
+            </form>
+
+            <form id="hide-form" th:action="@{/admin-product-details/hide}" method="post">
+                <input type="hidden" name="id" th:value="${product.id}">
+            </form>
+
+            <form id="delete-form" th:action="@{/admin-product-details/delete}" method="post">
+                <input type="hidden" name="id" th:value="${product.id}">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

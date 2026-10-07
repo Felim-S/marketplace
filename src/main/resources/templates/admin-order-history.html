@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Order History</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header>
+        <h1>Admin Order History</h1>
+        <a id="home-button" href="/">
+            <button class="button">
+                <img id="home-button-image" src="/home-icon.png" width="100" alt="Home icon">
+            </button>
+        </a>
+
+        <form id="logout-form" action="/logout" method="post">
+            <button class="button">Logout</button>
+        </form>
+    </header>
+
+    <table>
+        <tr>
+            <th>Order ID</th>
+            <th>User ID</th>
+            <th>Total</th>
+            <th>Details</th>
+            <th>Status</th>
+        </tr>
+        <tr th:each="order: ${orders}">
+            <td th:text="${order.getId()}"></td>
+            <td th:text="${order.getUserId()}"></td>
+            <td th:text="|$${#numbers.formatDecimal(order.getTotal(), 1, 2)}|"></td>
+            <td>
+                <ul>
+                    <li th:each="item: ${order.getOrderItems()}">
+                        <span th:text="${item.getProductName()}"></span>
+                        x<span th:text="${item.getQuantity()}"></span>
+                        @ $<span th:text="${#numbers.formatDecimal(item.getPriceAtPurchase(), 1, 2)}"></span>
+                    </li>
+                </ul>
+            </td>
+            <td>
+                <form th:action="@{/admin-order-history/update-status}" method="post">
+                    <input type="hidden" name="orderId" th:value="${order.getId()}">
+                    <select name="status">
+                        <option value="PENDING"   th:selected="${order.status == 'PENDING'}">PENDING</option>
+                        <option value="COMPLETED" th:selected="${order.status == 'COMPLETED'}">COMPLETED</option>
+                        <option value="CANCELLED" th:selected="${order.status == 'CANCELLED'}">CANCELLED</option>
+                    </select>
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

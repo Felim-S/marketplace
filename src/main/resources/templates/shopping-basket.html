@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Basket</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header>
+    <h1>Shopping Basket</h1>
+        <a id="home-button" href="/">
+            <button class="button">
+                <img id="home-button-image" src="/home-icon.png" width="100" alt="Home icon">
+            </button>
+        </a>
+
+        <form id="logout-form" action="/logout" method="post">
+            <button class="button">Logout</button>
+        </form>
+
+        <a id="shopping-basket-button" href="/order-history">
+            <button class="button">View Orders</button>
+        </a>
+    </header>
+
+    <div th:if="${#lists.isEmpty(basketItems)}">
+        <br><br>
+        <h1>Empty Basket</h1>
+        <p id="empty-basket-text">Add products from the homepage and they'll appear here</p>
+    </div>
+
+    <div th:if="${not #lists.isEmpty(basketItems)}">
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th></th>
+            </tr>
+            <tr th:each="item : ${basketItems}">
+                <td th:text="${item.product.name}"></td>
+                <td>$<span th:text="${item.product.price}"></span></td>
+                <td>
+                    <div class="qty-control">
+                        <form th:action="@{/basket/update}" method="post">
+                            <input type="hidden" name="productId" th:value="${item.product.id}">
+                            <input type="hidden" name="delta" value="-1">
+                            <button type="submit" class="qty-btn">−</button>
+                        </form>
+                        <span class="qty" th:text="${item.quantity}"></span>
+                        <form th:action="@{/basket/update}" method="post">
+                            <input type="hidden" name="productId" th:value="${item.product.id}">
+                            <input type="hidden" name="delta" value="1">
+                            <button type="submit" class="qty-btn">+</button>
+                        </form>
+                    </div>
+                </td>
+                <td>
+                    <form th:action="@{/basket/remove}" method="post">
+                        <input type="hidden" name="productId" th:value="${item.product.id}">
+                        <button type="submit" class="btn-danger">Remove</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+
+        <h2 id="total-text">Total: $[[${#numbers.formatDecimal(total, 1, 2)}]]</h2>
+
+        <div id="place-order-button">
+            <form th:action="@{/basket/order}" method="post">
+                <button class="button">Place Order</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

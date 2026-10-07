@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order History</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header>
+    <h1>Order History</h1>
+        <a id="home-button" href="/">
+            <button class="button">
+                <img id="home-button-image" src="/home-icon.png" width="100" alt="Home icon">
+            </button>
+        </a>
+
+        <form id="logout-form" action="/logout" method="post">
+            <button class="button">Logout</button>
+        </form>
+    </header>
+
+    <table>
+        <tr>
+            <th>Order ID</th>
+            <th>Status</th>
+            <th>Total</th>
+            <th>Details</th>
+        </tr>
+        <tr th:each="order: ${orders}">
+            <td th:text="${order.getId()}"></td>
+            <td th:text="${order.getStatus()}"
+                th:class="${order.status == 'PENDING' ? 'text-pending' : (order.status == 'COMPLETED' ? 'text-complete' : 'text-cancelled')}"></td>
+            <td th:text="|$${#numbers.formatDecimal(order.getTotal(), 1, 2)}|"></td>
+            <td>
+                <ul>
+                    <li th:each="item: ${order.getOrderItems()}">
+                        <span th:text="${item.getProductName()}"></span>
+                        x<span th:text="${item.getQuantity()}"></span>
+                        @ $<span th:text="${#numbers.formatDecimal(item.getPriceAtPurchase(), 1, 2)}"></span>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

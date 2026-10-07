@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Details</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header>
+    <h1>Product Details</h1>
+        <a id="home-button" href="/">
+            <button class="button">
+                <img id="home-button-image" src="/home-icon.png" width="100" alt="Home icon">
+            </button>
+        </a>
+
+        <form id="logout-form" action="/logout" method="post">
+            <button class="button">Logout</button>
+        </form>
+
+        <a id="shopping-basket-button" href="/shopping-basket">
+            <button class="button">
+                Basket
+            </button>
+        </a>
+    </header>
+
+    <div class="product-details">
+        <img th:src="|/${product.imageUrl}|" th:alt="${product.name}">
+        <div class="product-info">
+            <h3 th:text="${product.name}"></h3>
+            <h4>Price: $<span th:text="${product.price}"></span></h4>
+            <p th:text="${product.description}"></p>
+            <form th:action="@{/basket/add}" method="post">
+                <input type="hidden" name="productId" th:value="${product.id}">
+                <button type="submit">Add to Basket</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

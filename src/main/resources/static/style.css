@@ -1,0 +1,354 @@
+@font-face {
+    font-family: RobotoMono;
+    src: url(RobotoMono-Regular.ttf);
+    font-display: swap;
+}
+
+/* CSS Variables (for colours) */
+:root {
+    --bg:          burlywood;
+    --text:        antiquewhite;
+    --link:        #ff6a00;
+    --header-bg:   #b16935;
+    --btn-bg:      #e1aa7a;
+    --btn-hover:   #e8bc98;
+    --btn-active:  #e8c3a9;
+    --home-btn-bg: chocolate;
+}
+
+/* Base/root stuff */
+* {
+    font-family: RobotoMono, Calibri, sans-serif;
+    font-size: 20px;
+    box-sizing: border-box;
+}
+
+::selection {
+    background: var(--home-btn-bg);
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+}
+
+h1{
+    margin: 0;
+    text-align: center;
+    font-size: 50px;
+}
+
+a {
+    color: var(--link);
+}
+
+/* Images */
+img {
+    border: 5px solid var(--text);
+}
+
+#home-button-image {
+    border: none;
+}
+
+/* Buttons */
+button,
+input[type="submit"] {
+    font-size: 30px;
+    background-color: var(--btn-bg);
+    color: var(--text);
+    border: none;
+    padding: 6px 14px;
+    cursor: pointer;
+}
+
+button:hover,
+input[type="submit"]:hover {
+    background-color: var(--btn-hover);
+}
+
+button:active,
+input[type="submit"]:active {
+    background-color: var(--btn-active);
+}
+
+/* Inputs */
+input,
+textarea,
+select {
+    font-size: 30px;
+    background-color: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--text);
+    padding: 4px 8px;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--text);
+    background-color: var(--bg);
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+input[type="checkbox"]:checked {
+    background-color: var(--btn-bg);
+}
+
+input[type="checkbox"]:checked::after {
+    content: "✓";
+    display: block;
+    text-align: center;
+    line-height: 30px;
+    color: var(--text);
+    font-size: 22px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    color: var(--text);
+    outline: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--text);
+    opacity: 0.6;
+}
+
+/* Headers */
+header {
+    position: relative;
+    background-color: var(--header-bg);
+    height: 200px;
+}
+
+#home-button {
+    background-color: var(--home-btn-bg);
+    position: absolute;
+    top: 50%;
+    left: 5%;
+}
+
+#shopping-basket-button {
+    position: absolute;
+    top: 55%;
+    right: 5%;
+}
+
+#logout-form {
+    position: absolute;
+    top: 55%;
+    left: calc(5% + 160px);
+}
+
+#add-product-button {
+    position: absolute;
+    top: 55%;
+    right: calc(10% + 200px);
+}
+
+
+/* Login/Create Account / Product Form */
+.page-header {
+    text-align: center;
+    padding-top: 15px;
+    height: 100px;
+}
+
+.centered-form {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.centered-form label {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.centered-form input[type="text"],
+.centered-form input[type="email"],
+.centered-form input[type="password"] {
+    display: block;
+    margin: 0 auto 20px;
+}
+
+#price-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 20px;
+}
+
+#price-input span {
+    font-size: 24px;
+}
+
+#product-description {
+    display: block;
+    margin: 0 auto 40px;
+    height: 150px;
+    resize: none;
+}
+
+/* Product details page */
+.product-details {
+    display: flex;
+    gap: 40px;
+    padding: 40px;
+    align-items: flex-start;
+}
+
+.product-details img {
+    width: 450px;
+    height: auto;
+    flex-shrink: 0;
+}
+
+.product-info {
+    flex: 1;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.btn-danger {
+    background-color: #c0392b;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #a93226;
+}
+
+.btn-danger:active {
+    background-color: #922b21;
+}
+
+/* Product grid (on homepage) */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.product-card {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+}
+
+.product-card p {
+    margin: 8px 0 0;
+    color: var(--text);
+}
+
+.product-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    will-change: transform;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.product-card:hover img {
+    transform: scale(1.03);
+    opacity: 0.85;
+}
+
+.product-card.product-hidden img {
+    opacity: 0.3;
+}
+
+/* Tables (for shopping basket and order history) */
+table {
+    border-collapse: collapse;
+    margin: 30px 40px;
+}
+
+th, td {
+    border: 1px solid var(--text);
+    padding: 10px 16px;
+    text-align: left;
+}
+
+th {
+    background-color: var(--header-bg);
+}
+
+tr:hover {
+    background-color: var(--btn-hover);
+}
+
+.text-pending{
+    font-weight: bold;
+    color: darkorange;
+}
+
+.text-complete{
+    font-weight: bold;
+    color: green;
+}
+
+.text-cancelled{
+    font-weight: bold;
+    color: red;
+}
+
+.text-error {
+    color: red;
+}
+
+/* Quantity controls */
+.qty-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.qty-btn {
+    font-size: 22px;
+    padding: 2px 12px;
+    line-height: 1;
+}
+
+.qty-btn:hover {
+    background-color: #f5dbc6;
+}
+
+.qty {
+    min-width: 24px;
+    text-align: center;
+    display: inline-block;
+}
+
+/* Shopping Basket */
+#total-text,
+#place-order-button {
+    text-align: right;
+    margin-right: 100px;
+}
+
+#total-text {
+    font-size: 35px;
+    font-weight: bold;
+}
+
+#empty-basket-text{
+    color: var(--text);
+    text-align: center;
+    font-size: 35px;
+}

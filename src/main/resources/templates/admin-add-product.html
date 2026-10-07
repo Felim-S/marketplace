@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header>
+        <h1>Add Product</h1>
+        <a id="home-button" href="/">
+            <button class="button">
+                <img id="home-button-image" src="/home-icon.png" width="100" alt="Home icon">
+            </button>
+        </a>
+
+        <form id="logout-form" action="/logout" method="post">
+            <button class="button">Logout</button>
+        </form>
+    </header>
+
+    <form class="centered-form" action="/admin-add-product" method="POST">
+        <label for="product-name">Product Name:</label>
+        <input type="text" name="name" id="product-name" placeholder="Coffee Mug..." required>
+        <br><br>
+
+        <label for="product-description">Description:</label>
+        <textarea name="description" id="product-description" placeholder="A warm mug of coffee..." required></textarea>
+        <br><br>
+
+        <label for="product-price">Price:</label>
+        <div id="price-input">
+            <span>$</span>
+            <input type="number" min="0" step="0.01" name="price" id="product-price" placeholder="10.00" required>
+        </div>
+        <br><br>
+
+        <label for="product-image">Image URL:</label>
+        <input type="text" name="imageUrl" id="product-image" required placeholder="coffee-mug.webp">
+        <br><br>
+
+        <input id="product-submit" type="submit" value="Add Product">
+    </form>
+
+    <br>
+    <br>
+</body>
+</html>
